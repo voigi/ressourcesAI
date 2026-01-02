@@ -47,6 +47,7 @@
         .type-text { background: #e0f2fe; color: #0284c7; }
         .type-image { background: #fef3c7; color: #d97706; }
         .type-interactive { background: #dcfce7; color: #16a34a; }
+        .type-audio { background: #f3e8ff; color: #7e22ce; }
 
         .session-container {
             border-left: 3px solid #6366f1;
@@ -133,8 +134,44 @@
             object-fit: cover;
         }
 
-        .extension-chip {
-            @apply px-1.5 py-0.5 bg-white border border-slate-200 rounded text-slate-600 font-mono;
+        /* Chips d'extensions colorées */
+        .ext-chip {
+            @apply px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase;
+        }
+        .ext-video { @apply bg-red-100 text-red-700 border border-red-200; }
+        .ext-audio { @apply bg-purple-100 text-purple-700 border border-purple-200; }
+        .ext-text { @apply bg-blue-100 text-blue-700 border border-blue-200; }
+        .ext-image { @apply bg-amber-100 text-amber-700 border border-amber-200; }
+
+        .audio-player-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: linear-gradient(to bottom, #1e1b4b, #000);
+            color: white;
+            padding: 2rem;
+        }
+        
+        .audio-visualizer-mock {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            height: 60px;
+            margin-bottom: 2rem;
+        }
+        
+        .audio-bar {
+            width: 4px;
+            background: #6366f1;
+            border-radius: 2px;
+            animation: audioBounce 1s infinite ease-in-out;
+        }
+
+        @keyframes audioBounce {
+            0%, 100% { height: 10px; }
+            50% { height: 50px; }
         }
     </style>
 </head>
@@ -178,21 +215,35 @@
 
                 <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
                     <label class="block text-sm font-bold text-slate-700 mb-2">Importer un fichier local</label>
-                    <input type="file" id="fileInput" accept=".pdf,.mp4,.png,.jpg,.jpeg,.gif" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-slate-200 file:text-slate-700 hover:file:bg-slate-300 mb-4">
+                    <input type="file" id="fileInput" accept=".pdf,.mp4,.png,.jpg,.jpeg,.gif,.mp3,.wav,.ogg" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-slate-200 file:text-slate-700 hover:file:bg-slate-300 mb-4">
                     
-                    <div class="space-y-2 border-t border-slate-200 pt-3">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Correspondance des formats :</p>
-                        <div class="flex items-center gap-2 text-[10px]">
-                            <span class="extension-chip">.mp4</span>
-                            <span class="text-slate-500">→ Vidéo (génère une miniature)</span>
-                        </div>
-                        <div class="flex items-center gap-2 text-[10px]">
-                            <span class="extension-chip">.pdf</span>
-                            <span class="text-slate-500">→ Document (lecteur intégré)</span>
-                        </div>
-                        <div class="flex items-center gap-2 text-[10px]">
-                            <span class="extension-chip">.jpg / .png</span>
-                            <span class="text-slate-500">→ Image (aperçu direct)</span>
+                    <div class="space-y-3 border-t border-slate-200 pt-3">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 text-left tracking-wider">Formats supportés par type :</p>
+                        <div class="grid grid-cols-2 gap-x-4 gap-y-3">
+                            <div class="flex flex-col gap-1">
+                                <span class="text-[9px] font-bold text-red-500 uppercase">Vidéo</span>
+                                <div class="flex flex-wrap gap-1"><span class="ext-chip ext-video">.mp4</span></div>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <span class="text-[9px] font-bold text-purple-500 uppercase">Audio</span>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="ext-chip ext-audio">.mp3</span>
+                                    <span class="ext-chip ext-audio">.wav</span>
+                                    <span class="ext-chip ext-audio">.ogg</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <span class="text-[9px] font-bold text-blue-500 uppercase">Document</span>
+                                <div class="flex flex-wrap gap-1"><span class="ext-chip ext-text">.pdf</span></div>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <span class="text-[9px] font-bold text-amber-500 uppercase">Image</span>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="ext-chip ext-image">.jpg</span>
+                                    <span class="ext-chip ext-image">.png</span>
+                                    <span class="ext-chip ext-image">.gif</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -246,7 +297,6 @@
             <div class="flex items-center gap-2 font-black text-xl tracking-tighter">
                 <span class="bg-indigo-600 text-white px-2 py-0.5 rounded shadow-sm">IA</span> LAB 3ème
             </div>
-            <!-- Conteneur pour les liens injectés par JS -->
             <div id="dynamicNavLinks" class="hidden md:flex gap-6 text-[11px] font-bold text-slate-500 uppercase tracking-widest">
             </div>
         </div>
@@ -261,7 +311,7 @@
             </div>
             <h1 class="text-4xl font-black text-slate-900 tracking-tight mb-2">Mes ressources</h1>
             <p class="text-slate-500 max-w-2xl text-sm leading-relaxed">
-                Supports de cours, vidéos et activités interactives sur l'IA.
+                Supports de cours, vidéos, audios et activités interactives sur l'IA.
             </p>
         </div>
     </header>
@@ -307,6 +357,7 @@
 
         const typeConfig = {
             video: { label: 'Regarder la vidéo', icon: 'fa-play-circle' },
+            audio: { label: 'Écouter le son', icon: 'fa-headphones' },
             text: { label: 'Lire le document', icon: 'fa-file-alt' },
             image: { label: 'Visualiser l\'image', icon: 'fa-image' },
             interactive: { label: 'Lancer l\'activité', icon: 'fa-bolt' }
@@ -386,6 +437,19 @@
                 } else {
                     body.innerHTML = `<iframe src="${res.url}" class="w-full h-full border-0 bg-white"></iframe>`;
                 }
+            } else if (res.type === 'audio') {
+                body.innerHTML = `
+                <div class="audio-player-container">
+                    <div class="audio-visualizer-mock">
+                        ${Array(12).fill(0).map(() => `<div class="audio-bar" style="animation-delay: ${Math.random()}s"></div>`).join('')}
+                    </div>
+                    <i class="fas fa-music text-6xl text-indigo-400 mb-8"></i>
+                    <audio controls autoplay class="w-full max-w-md">
+                        <source src="${res.url}">
+                        Votre navigateur ne supporte pas l'élément audio.
+                    </audio>
+                    <p class="mt-6 text-slate-400 text-sm italic font-medium">Lecture de la ressource audio...</p>
+                </div>`;
             } else if (res.type === 'image') {
                 body.innerHTML = `<div class="w-full h-full flex items-center justify-center p-4 bg-slate-900"><img src="${res.url}" class="max-w-full max-h-full object-contain"></div>`;
             } else {
@@ -403,11 +467,9 @@
             navLinks.innerHTML = '';
 
             siteData.forEach((session, sIdx) => {
-                // Création du lien de navigation
                 const navLink = document.createElement('a');
                 navLink.href = `#${session.id}`;
                 navLink.className = "hover:text-indigo-600 transition truncate max-w-[120px]";
-                // On nettoie un peu le titre pour la nav (ex: enlever "Séance 1 : ")
                 navLink.textContent = session.title.includes(':') ? session.title.split(':')[1].trim() : session.title;
                 navLinks.appendChild(navLink);
 
@@ -427,7 +489,6 @@
                 const titleEl = sSection.querySelector('.session-title');
                 titleEl.contentEditable = isEditMode;
                 titleEl.oninput = () => {
-                    // Mise à jour immédiate du titre dans les données et la navigation sans re-render complet
                     session.title = titleEl.innerText;
                     navLink.textContent = session.title.includes(':') ? session.title.split(':')[1].trim() : session.title;
                 };
@@ -449,7 +510,6 @@
                     resDesc.onblur = (e) => { res.desc = e.target.innerText; save(); };
 
                     const thumbContainer = card.querySelector('.thumbnail-container');
-
                     const config = typeConfig[res.type] || typeConfig.text;
                     const badge = card.querySelector('.type-badge');
                     badge.textContent = res.type;
@@ -479,7 +539,7 @@
                     };
 
                     card.querySelector('.select-type').onclick = () => {
-                        const types = ['video', 'text', 'image', 'interactive'];
+                        const types = ['video', 'audio', 'text', 'image', 'interactive'];
                         res.type = types[(types.indexOf(res.type) + 1) % types.length];
                         save(); render();
                     };
@@ -488,7 +548,7 @@
                 });
 
                 sSection.querySelector('.add-res-btn').onclick = () => {
-                    session.resources.push({ type: 'text', title: 'Nouveau document', desc: 'Description...', url: '#', isLocal: false });
+                    session.resources.push({ type: 'text', title: 'Nouvelle ressource', desc: 'Description...', url: '#', isLocal: false });
                     save(); render();
                 };
 
@@ -560,7 +620,7 @@
             }
 
             if(file) {
-                const allowed = ['pdf', 'mp4', 'png', 'jpg', 'jpeg', 'gif'];
+                const allowed = ['pdf', 'mp4', 'png', 'jpg', 'jpeg', 'gif', 'mp3', 'wav', 'ogg'];
                 const ext = file.name.split('.').pop().toLowerCase();
                 if(!allowed.includes(ext)) {
                     showModalError(`Format .${ext} non autorisé.`);
@@ -577,6 +637,8 @@
                     if (ext === 'mp4') {
                         target.type = 'video';
                         target.thumbnail = await getVideoThumbnail(result);
+                    } else if (['mp3', 'wav', 'ogg'].includes(ext)) {
+                        target.type = 'audio';
                     } else if (ext === 'pdf') {
                         target.type = 'text';
                     } else {
