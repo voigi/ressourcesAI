@@ -170,7 +170,6 @@
                         <span class="text-[9px] bg-indigo-600 text-white px-2 py-0.5 rounded-full font-bold">RECOMMANDÉ</span>
                     </div>
                     <input type="text" id="urlInput" class="w-full px-4 py-2 border border-indigo-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 text-sm" placeholder="https://www.youtube.com/watch?v=...">
-                    <p class="text-[10px] text-indigo-400 mt-1 italic">YouTube : Meilleure compatibilité et performance.</p>
                 </div>
 
                 <div class="text-center text-xs font-bold text-slate-300 flex items-center gap-4">
@@ -181,7 +180,6 @@
                     <label class="block text-sm font-bold text-slate-700 mb-2">Importer un fichier local</label>
                     <input type="file" id="fileInput" accept=".pdf,.mp4,.png,.jpg,.jpeg,.gif" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-slate-200 file:text-slate-700 hover:file:bg-slate-300 mb-4">
                     
-                    <!-- Aide sur les extensions -->
                     <div class="space-y-2 border-t border-slate-200 pt-3">
                         <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Correspondance des formats :</p>
                         <div class="flex items-center gap-2 text-[10px]">
@@ -202,7 +200,7 @@
             
             <div class="flex gap-3 mt-6">
                 <button id="cancelLink" class="flex-1 py-2 text-slate-500 hover:bg-slate-100 rounded-lg transition text-sm font-medium">Annuler</button>
-                <button id="saveLink" class="flex-1 py-2 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition text-sm">Sauvegarder la source</button>
+                <button id="saveLink" class="flex-1 py-2 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition text-sm">Sauvegarder</button>
             </div>
         </div>
     </div>
@@ -242,22 +240,18 @@
         <div id="saveStatus" class="text-[10px] text-slate-500 font-bold uppercase">Lecture seule</div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Navigation Dynamique -->
     <nav class="bg-white border-b py-4 px-6">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2 font-black text-xl tracking-tighter">
                 <span class="bg-indigo-600 text-white px-2 py-0.5 rounded shadow-sm">IA</span> LAB 3ème
             </div>
-            <div class="hidden md:flex gap-6 text-xs font-bold text-slate-500 uppercase tracking-widest">
-                <a href="#seance1" class="hover:text-indigo-600 transition">Fondations</a>
-                <a href="#seance2" class="hover:text-indigo-600 transition">Apprentissage</a>
-                <a href="#seance3" class="hover:text-indigo-600 transition">Génération</a>
-                <a href="#seance4" class="hover:text-indigo-600 transition">Société</a>
+            <!-- Conteneur pour les liens injectés par JS -->
+            <div id="dynamicNavLinks" class="hidden md:flex gap-6 text-[11px] font-bold text-slate-500 uppercase tracking-widest">
             </div>
         </div>
     </nav>
 
-    <!-- En-tête de la page -->
     <header class="hero-gradient border-b border-slate-200 py-10 px-6">
         <div class="max-w-5xl mx-auto">
             <div class="flex items-center gap-3 mb-2">
@@ -267,7 +261,7 @@
             </div>
             <h1 class="text-4xl font-black text-slate-900 tracking-tight mb-2">Mes ressources</h1>
             <p class="text-slate-500 max-w-2xl text-sm leading-relaxed">
-                Accédez à tous les supports de cours, vidéos et activités interactives sur l'Intelligence Artificielle. Sélectionnez une séance ci-dessous pour commencer.
+                Supports de cours, vidéos et activités interactives sur l'IA.
             </p>
         </div>
     </header>
@@ -286,19 +280,19 @@
                     <span class="local-label hidden text-[9px] bg-indigo-100 text-indigo-700 font-bold px-1.5 rounded">LOCAL</span>
                 </div>
                 <div class="group relative">
-                    <h3 class="res-title font-bold text-slate-800 outline-none">Titre de la ressource</h3>
-                    <p class="res-desc text-sm text-slate-500 outline-none">Description courte du contenu...</p>
+                    <h3 class="res-title font-bold text-slate-800 outline-none">Titre</h3>
+                    <p class="res-desc text-sm text-slate-500 outline-none">Description...</p>
                 </div>
             </div>
             <div class="flex flex-col gap-2 min-w-[170px]">
-                <button class="open-resource bg-indigo-600 text-white py-2.5 rounded-lg font-bold text-xs hover:bg-indigo-700 transition shadow-md shadow-indigo-100 flex items-center justify-center gap-2">
-                    <i class="btn-icon fas fa-eye"></i> <span class="btn-text">Voir le contenu</span>
+                <button class="open-resource bg-indigo-600 text-white py-2.5 rounded-lg font-bold text-xs hover:bg-indigo-700 transition shadow-md flex items-center justify-center gap-2">
+                    <i class="btn-icon fas fa-eye"></i> <span class="btn-text">Voir</span>
                 </button>
                 <div class="flex gap-2">
-                    <button class="edit-link admin-btn-disabled flex-1 bg-slate-100 py-2 rounded text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 flex items-center justify-center gap-1.5 text-[10px] font-bold border border-transparent hover:border-indigo-100 transition">
-                        <i class="fas fa-link"></i> Modifier la source
+                    <button class="edit-link admin-btn-disabled flex-1 bg-slate-100 py-2 rounded text-slate-600 hover:bg-indigo-50 flex items-center justify-center gap-1.5 text-[10px] font-bold border border-transparent transition">
+                        <i class="fas fa-link"></i> Modifier source
                     </button>
-                    <button class="delete-res admin-btn-disabled w-10 bg-red-50 py-2 rounded text-red-400 hover:text-red-600 hover:bg-red-100 flex items-center justify-center transition">
+                    <button class="delete-res admin-btn-disabled w-10 bg-red-50 py-2 rounded text-red-400 hover:text-red-600 flex items-center justify-center transition">
                         <i class="fas fa-trash text-[10px]"></i>
                     </button>
                 </div>
@@ -377,7 +371,6 @@
                 body.innerHTML = `<div class="w-full h-full flex flex-col items-center justify-center text-white p-8 text-center">
                     <i class="fas fa-cloud-upload-alt text-4xl mb-4 text-slate-600"></i>
                     <p class="font-bold">Aucune source liée</p>
-                    <p class="text-sm text-slate-400 mt-2">Passez en mode édition pour ajouter un lien ou un fichier.</p>
                 </div>`;
                 viewer.style.display = 'flex';
                 return;
@@ -394,7 +387,7 @@
                     body.innerHTML = `<iframe src="${res.url}" class="w-full h-full border-0 bg-white"></iframe>`;
                 }
             } else if (res.type === 'image') {
-                body.innerHTML = `<div class="w-full h-full flex items-center justify-center p-4 bg-slate-900"><img src="${res.url}" class="max-w-full max-h-full object-contain shadow-2xl"></div>`;
+                body.innerHTML = `<div class="w-full h-full flex items-center justify-center p-4 bg-slate-900"><img src="${res.url}" class="max-w-full max-h-full object-contain"></div>`;
             } else {
                 body.innerHTML = `<iframe src="${res.url}" class="w-full h-full bg-white border-0"></iframe>`;
             }
@@ -403,10 +396,21 @@
 
         function render() {
             const container = document.getElementById('mainContent');
-            if (!container) return;
+            const navLinks = document.getElementById('dynamicNavLinks');
+            if (!container || !navLinks) return;
+            
             container.innerHTML = '';
+            navLinks.innerHTML = '';
 
             siteData.forEach((session, sIdx) => {
+                // Création du lien de navigation
+                const navLink = document.createElement('a');
+                navLink.href = `#${session.id}`;
+                navLink.className = "hover:text-indigo-600 transition truncate max-w-[120px]";
+                // On nettoie un peu le titre pour la nav (ex: enlever "Séance 1 : ")
+                navLink.textContent = session.title.includes(':') ? session.title.split(':')[1].trim() : session.title;
+                navLinks.appendChild(navLink);
+
                 const sSection = document.createElement('div');
                 sSection.className = 'session-container';
                 sSection.id = session.id;
@@ -422,7 +426,12 @@
 
                 const titleEl = sSection.querySelector('.session-title');
                 titleEl.contentEditable = isEditMode;
-                titleEl.onblur = () => { session.title = titleEl.innerText; save(); };
+                titleEl.oninput = () => {
+                    // Mise à jour immédiate du titre dans les données et la navigation sans re-render complet
+                    session.title = titleEl.innerText;
+                    navLink.textContent = session.title.includes(':') ? session.title.split(':')[1].trim() : session.title;
+                };
+                titleEl.onblur = () => { save(); };
 
                 const resList = sSection.querySelector('.res-list');
                 session.resources.forEach((res, rIdx) => {
@@ -441,23 +450,19 @@
 
                     const thumbContainer = card.querySelector('.thumbnail-container');
 
-                    const updateUIByType = () => {
-                        const config = typeConfig[res.type] || typeConfig.text;
-                        const badge = card.querySelector('.type-badge');
-                        badge.textContent = res.type;
-                        badge.className = `type-badge type-${res.type} select-type admin-btn-disabled`;
-                        
-                        if (res.thumbnail || (res.type === 'image' && res.isLocal)) {
-                            thumbContainer.innerHTML = `<img src="${res.thumbnail || res.url}" alt="miniature">`;
-                        } else {
-                            thumbContainer.innerHTML = `<i class="fas ${config.icon} text-slate-400 text-xl"></i>`;
-                        }
-
-                        card.querySelector('.btn-text').textContent = config.label;
-                        card.querySelector('.btn-icon').className = `btn-icon fas ${config.icon}`;
-                    };
+                    const config = typeConfig[res.type] || typeConfig.text;
+                    const badge = card.querySelector('.type-badge');
+                    badge.textContent = res.type;
+                    badge.className = `type-badge type-${res.type} select-type admin-btn-disabled`;
                     
-                    updateUIByType();
+                    if (res.thumbnail || (res.type === 'image' && res.isLocal)) {
+                        thumbContainer.innerHTML = `<img src="${res.thumbnail || res.url}" alt="miniature">`;
+                    } else {
+                        thumbContainer.innerHTML = `<i class="fas ${config.icon} text-slate-400 text-xl"></i>`;
+                    }
+
+                    card.querySelector('.btn-text').textContent = config.label;
+                    card.querySelector('.btn-icon').className = `btn-icon fas ${config.icon}`;
                     
                     if(res.isLocal) card.querySelector('.local-label').classList.remove('hidden');
 
@@ -483,7 +488,7 @@
                 });
 
                 sSection.querySelector('.add-res-btn').onclick = () => {
-                    session.resources.push({ type: 'text', title: 'Nouveau document', desc: 'Description du support...', url: '#', isLocal: false });
+                    session.resources.push({ type: 'text', title: 'Nouveau document', desc: 'Description...', url: '#', isLocal: false });
                     save(); render();
                 };
 
@@ -503,13 +508,13 @@
                 btnText.textContent = "Verrouiller le mode édition";
                 btnIcon.className = 'fas fa-lock-open';
                 icon.className = 'w-2 h-2 rounded-full bg-green-500';
-                statusText.textContent = 'Mode Administrateur (Modifications possibles)';
+                statusText.textContent = 'Mode Administrateur';
             } else {
                 document.body.classList.remove('edit-mode');
                 btnText.textContent = "Déverrouiller l'édition";
                 btnIcon.className = 'fas fa-lock';
                 icon.className = 'w-2 h-2 rounded-full bg-red-500';
-                statusText.textContent = 'Mode Consultation (Lecture seule)';
+                statusText.textContent = 'Mode Consultation';
             }
         }
 
