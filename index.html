@@ -134,7 +134,6 @@
             object-fit: cover;
         }
 
-        /* Chips d'extensions colorées */
         .ext-chip {
             @apply px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase;
         }
@@ -173,6 +172,18 @@
             0%, 100% { height: 10px; }
             50% { height: 50px; }
         }
+
+        .h5p-logo {
+            display: inline-flex;
+            align-items: center;
+            background: #255c99;
+            color: white;
+            font-weight: 900;
+            font-size: 8px;
+            padding: 1px 4px;
+            border-radius: 2px;
+            line-height: 1;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
@@ -195,18 +206,31 @@
     <!-- Modal Source Link -->
     <div id="linkModal" class="modal-overlay">
         <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full mx-4">
-            <h3 class="text-xl font-bold mb-2">Configuration de la source</h3>
+            <h3 class="text-xl font-bold mb-2 text-slate-800">Configuration de la source</h3>
             <p id="modalErrorMessage" class="text-red-500 text-[10px] font-bold uppercase hidden mb-4"><i class="fas fa-exclamation-triangle mr-1"></i> Erreur : Source non valide.</p>
             
             <div class="space-y-4">
                 <div class="p-4 bg-indigo-50 border border-indigo-100 rounded-xl">
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-sm font-bold text-indigo-900">
-                            <i class="fab fa-youtube text-red-600 mr-1"></i> Lien YouTube / Web
-                        </label>
-                        <span class="text-[9px] bg-indigo-600 text-white px-2 py-0.5 rounded-full font-bold">RECOMMANDÉ</span>
+                    <div class="flex flex-col gap-2 mb-3">
+                        <label class="block text-sm font-bold text-indigo-900">Lien Distant</label>
+                        <div class="flex flex-wrap items-center gap-3 bg-white/50 p-2 rounded-lg border border-indigo-100">
+                            <div class="flex items-center gap-1.5 grayscale hover:grayscale-0 transition cursor-default">
+                                <i class="fab fa-youtube text-red-600 text-lg"></i>
+                                <span class="text-[9px] font-bold text-slate-600 uppercase">YouTube</span>
+                            </div>
+                            <div class="w-px h-3 bg-indigo-200"></div>
+                            <div class="flex items-center gap-1.5 grayscale hover:grayscale-0 transition cursor-default">
+                                <i class="fas fa-globe text-blue-500 text-base"></i>
+                                <span class="text-[9px] font-bold text-slate-600 uppercase">Web</span>
+                            </div>
+                            <div class="w-px h-3 bg-indigo-200"></div>
+                            <div class="flex items-center gap-1.5 grayscale hover:grayscale-0 transition cursor-default">
+                                <span class="h5p-logo">H5P</span>
+                                <span class="text-[9px] font-bold text-slate-600 uppercase">H5P Content</span>
+                            </div>
+                        </div>
                     </div>
-                    <input type="text" id="urlInput" class="w-full px-4 py-2 border border-indigo-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 text-sm" placeholder="https://www.youtube.com/watch?v=...">
+                    <input type="text" id="urlInput" class="w-full px-4 py-2 border border-indigo-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white" placeholder="https://...">
                 </div>
 
                 <div class="text-center text-xs font-bold text-slate-300 flex items-center gap-4">
@@ -218,7 +242,7 @@
                     <input type="file" id="fileInput" accept=".pdf,.mp4,.png,.jpg,.jpeg,.gif,.mp3,.wav,.ogg" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-slate-200 file:text-slate-700 hover:file:bg-slate-300 mb-4">
                     
                     <div class="space-y-3 border-t border-slate-200 pt-3">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 text-left tracking-wider">Formats supportés par type :</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 text-left tracking-wider">Formats supportés :</p>
                         <div class="grid grid-cols-2 gap-x-4 gap-y-3">
                             <div class="flex flex-col gap-1">
                                 <span class="text-[9px] font-bold text-red-500 uppercase">Vidéo</span>
@@ -229,7 +253,6 @@
                                 <div class="flex flex-wrap gap-1">
                                     <span class="ext-chip ext-audio">.mp3</span>
                                     <span class="ext-chip ext-audio">.wav</span>
-                                    <span class="ext-chip ext-audio">.ogg</span>
                                 </div>
                             </div>
                             <div class="flex flex-col gap-1">
@@ -241,7 +264,6 @@
                                 <div class="flex flex-wrap gap-1">
                                     <span class="ext-chip ext-image">.jpg</span>
                                     <span class="ext-chip ext-image">.png</span>
-                                    <span class="ext-chip ext-image">.gif</span>
                                 </div>
                             </div>
                         </div>
@@ -291,7 +313,6 @@
         <div id="saveStatus" class="text-[10px] text-slate-500 font-bold uppercase">Lecture seule</div>
     </div>
 
-    <!-- Navigation Dynamique -->
     <nav class="bg-white border-b py-4 px-6">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2 font-black text-xl tracking-tighter">
@@ -327,11 +348,16 @@
             <div class="flex-1">
                 <div class="flex items-center gap-2 mb-1">
                     <span class="type-badge select-type admin-btn-disabled">Vidéo</span>
-                    <span class="local-label hidden text-[9px] bg-indigo-100 text-indigo-700 font-bold px-1.5 rounded">LOCAL</span>
+                    <span class="local-label hidden text-[9px] bg-indigo-100 text-indigo-700 font-bold px-1.5 rounded uppercase">Distante</span>
                 </div>
                 <div class="group relative">
                     <h3 class="res-title font-bold text-slate-800 outline-none">Titre</h3>
-                    <p class="res-desc text-sm text-slate-500 outline-none">Description...</p>
+                    <p class="res-desc text-sm text-slate-500 outline-none mb-1">Description...</p>
+                    <!-- Affichage optimisé du nom du fichier -->
+                    <div class="filename-container hidden mt-2 flex items-center gap-2">
+                        <i class="filename-icon text-slate-800 text-xs"></i>
+                        <span class="filename-text text-xs italic font-medium text-slate-900 truncate max-w-[300px]">nom_du_fichier.pdf</span>
+                    </div>
                 </div>
             </div>
             <div class="flex flex-col gap-2 min-w-[170px]">
@@ -340,7 +366,7 @@
                 </button>
                 <div class="flex gap-2">
                     <button class="edit-link admin-btn-disabled flex-1 bg-slate-100 py-2 rounded text-slate-600 hover:bg-indigo-50 flex items-center justify-center gap-1.5 text-[10px] font-bold border border-transparent transition">
-                        <i class="fas fa-link"></i> Modifier source
+                        <i class="fas fa-link"></i> Source
                     </button>
                     <button class="delete-res admin-btn-disabled w-10 bg-red-50 py-2 rounded text-red-400 hover:text-red-600 flex items-center justify-center transition">
                         <i class="fas fa-trash text-[10px]"></i>
@@ -356,11 +382,11 @@
         let siteData = [];
 
         const typeConfig = {
-            video: { label: 'Regarder la vidéo', icon: 'fa-play-circle' },
-            audio: { label: 'Écouter le son', icon: 'fa-headphones' },
-            text: { label: 'Lire le document', icon: 'fa-file-alt' },
-            image: { label: 'Visualiser l\'image', icon: 'fa-image' },
-            interactive: { label: 'Lancer l\'activité', icon: 'fa-bolt' }
+            video: { label: 'Regarder la vidéo', icon: 'fa-play-circle', fileIcon: 'fa-file-video' },
+            audio: { label: 'Écouter le son', icon: 'fa-headphones', fileIcon: 'fa-file-audio' },
+            text: { label: 'Lire le document', icon: 'fa-file-alt', fileIcon: 'fa-file-pdf' },
+            image: { label: 'Visualiser l\'image', icon: 'fa-image', fileIcon: 'fa-file-image' },
+            interactive: { label: 'Lancer l\'activité', icon: 'fa-bolt', fileIcon: 'fa-file-code' }
         };
 
         function initDefaultData() {
@@ -372,13 +398,13 @@
             ];
         }
 
-        const saved = localStorage.getItem('ia_lab_v5_restored');
+        const saved = localStorage.getItem('ia_lab_restored_v2');
         if(saved) {
             try { siteData = JSON.parse(saved); } catch(e) { initDefaultData(); }
         } else { initDefaultData(); }
 
         function save() {
-            localStorage.setItem('ia_lab_v5_restored', JSON.stringify(siteData));
+            localStorage.setItem('ia_lab_restored_v2', JSON.stringify(siteData));
             const status = document.getElementById('saveStatus');
             if (status) {
                 status.textContent = isEditMode ? "Enregistré ✓" : "Lecture seule";
@@ -446,9 +472,7 @@
                     <i class="fas fa-music text-6xl text-indigo-400 mb-8"></i>
                     <audio controls autoplay class="w-full max-w-md">
                         <source src="${res.url}">
-                        Votre navigateur ne supporte pas l'élément audio.
                     </audio>
-                    <p class="mt-6 text-slate-400 text-sm italic font-medium">Lecture de la ressource audio...</p>
                 </div>`;
             } else if (res.type === 'image') {
                 body.innerHTML = `<div class="w-full h-full flex items-center justify-center p-4 bg-slate-900"><img src="${res.url}" class="max-w-full max-h-full object-contain"></div>`;
@@ -509,8 +533,20 @@
                     resDesc.contentEditable = isEditMode;
                     resDesc.onblur = (e) => { res.desc = e.target.innerText; save(); };
 
+                    const filenameContainer = card.querySelector('.filename-container');
+                    const filenameText = card.querySelector('.filename-text');
+                    const filenameIcon = card.querySelector('.filename-icon');
+                    
                     const thumbContainer = card.querySelector('.thumbnail-container');
                     const config = typeConfig[res.type] || typeConfig.text;
+                    
+                    if (res.isLocal && res.originalName) {
+                        filenameContainer.classList.remove('hidden');
+                        filenameText.textContent = res.originalName;
+                        // Icône dynamique en fonction du type
+                        filenameIcon.className = `filename-icon fas ${config.fileIcon} text-slate-800 text-xs`;
+                    }
+
                     const badge = card.querySelector('.type-badge');
                     badge.textContent = res.type;
                     badge.className = `type-badge type-${res.type} select-type admin-btn-disabled`;
@@ -524,7 +560,11 @@
                     card.querySelector('.btn-text').textContent = config.label;
                     card.querySelector('.btn-icon').className = `btn-icon fas ${config.icon}`;
                     
-                    if(res.isLocal) card.querySelector('.local-label').classList.remove('hidden');
+                    if(res.isLocal) {
+                        const localLabel = card.querySelector('.local-label');
+                        localLabel.textContent = "Fichier Local";
+                        localLabel.classList.remove('hidden');
+                    }
 
                     card.querySelector('.open-resource').onclick = () => openViewer(res);
                     card.querySelector('.edit-link').onclick = () => {
@@ -548,7 +588,7 @@
                 });
 
                 sSection.querySelector('.add-res-btn').onclick = () => {
-                    session.resources.push({ type: 'text', title: 'Nouvelle ressource', desc: 'Description...', url: '#', isLocal: false });
+                    session.resources.push({ type: 'text', title: 'Nouvelle ressource', desc: 'Description...', url: '#', isLocal: false, originalName: null });
                     save(); render();
                 };
 
@@ -620,18 +660,14 @@
             }
 
             if(file) {
-                const allowed = ['pdf', 'mp4', 'png', 'jpg', 'jpeg', 'gif', 'mp3', 'wav', 'ogg'];
-                const ext = file.name.split('.').pop().toLowerCase();
-                if(!allowed.includes(ext)) {
-                    showModalError(`Format .${ext} non autorisé.`);
-                    return;
-                }
-
+                const fileName = file.name;
+                const ext = fileName.split('.').pop().toLowerCase();
                 const reader = new FileReader();
                 reader.onload = async (e) => {
                     const result = e.target.result;
                     target.url = result;
                     target.isLocal = true;
+                    target.originalName = fileName;
                     target.thumbnail = null; 
 
                     if (ext === 'mp4') {
